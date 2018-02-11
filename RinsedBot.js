@@ -2,13 +2,13 @@
 var Discord = require('discord.io');
 var bot = new Discord.Client({
     
-	token: "NDEyMDU2NjIyNjY4NzA5ODg4.DWEuww.8LNMiX8pRS-bfi7WisTWRlaUUFc",
+	token: "",
 	autorun: true
     
 });
 
 var mainChannelID = "227196251731525632";
-var debugChannelID = "90453752749785088";
+var debugChannelID = "412148517709021185"; // #bot-testing channel for random output
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
 
