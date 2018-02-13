@@ -1,14 +1,22 @@
 /*Variable area*/
 var Discord = require('discord.io');
+// Import all settings from the conf.js file
+var settings = require('./conf.js');
+
+// Declare variables from the conf.js file
+var tokenn = settings.tokenn;
+var mainChannelID = settings.mainChannelID;
+var debugChannelID = settings.debugChannelID;
+
+
 var bot = new Discord.Client({
     
-	token: "",
+	token: tokenn,
 	autorun: true
     
 });
 
-var mainChannelID = ""; //  #general channel in server
-var debugChannelID = ""; // #debug channel in server
+
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
 
