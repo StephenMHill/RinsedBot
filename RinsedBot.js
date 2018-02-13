@@ -7,8 +7,8 @@ var bot = new Discord.Client({
     
 });
 
-var mainChannelID = "227196251731525632";
-var debugChannelID = "412148517709021185"; // #bot-testing channel for random output
+var mainChannelID = ""; //  #general channel in server
+var debugChannelID = ""; // #debug channel in server
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
 
@@ -24,6 +24,14 @@ bot.on("ready", function(event) {
     sendMessages(debugChannelID, ["Just got back from a Slurp!"]);
     console.log("messages until next JarrodNoise: " + restartCount);
     
+    var list = "";
+    
+    for (id in bot.servers){
+        list += id + " " + bot.servers[id] + "\n";
+    }
+    
+    console.log(list);
+    
 });
 
 bot.on("message", function(user, userID, channelID, message, event) {
@@ -31,7 +39,6 @@ bot.on("message", function(user, userID, channelID, message, event) {
 	console.log("in " + channelID);
 	console.log(message);
 	console.log("----------");
-
     /* Message Processing Logic*/
 	if (message.toLowerCase().includes("android")) {
         
