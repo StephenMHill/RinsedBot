@@ -72,6 +72,33 @@ client.on('message', message => {
                      //"**!schedules** will display all three schedules.\n\n" +
                      "**!execs** will display the list of club executives.\n\n" + 
                      "**!help** will display this list of available commands.");
+    } else if(message.content.toLowerCase().startsWith("!schedule1") || message.content.toLowerCase().startsWith("!s1")) {
+        message.channel.send("First Year Schedule", {
+            files: [
+                "./img/First-Year.png"
+            ]
+        });
+    } else if(message.content.toLowerCase().startsWith("!schedule2") || message.content.toLowerCase().startsWith("!s2")) {
+        message.channel.send("Second Year Schedule", {
+            files: [
+                "./img/Second-Year.png"
+            ]
+        });
+    } else if(message.content.toLowerCase().startsWith("!schedule3") || message.content.toLowerCase().startsWith("!s3")) {
+        message.channel.send("First Year Schedule", {
+            files: [
+                "./img/Third-Year.png"
+            ]
+        });
+    } else if(message.content.toLowerCase().startsWith("!schedules") || message.content.toLowerCase().startsWith("!ss")) {
+        message.channel.send("All Schedules", {
+            files: [
+                "./img/First-Year.png",
+                "./img/Second-Year.png",
+                "./img/Third-Year.png"
+                
+            ]
+        });
     }
     
     /* Messaging Logic that is separate from normal commands */
