@@ -107,17 +107,58 @@ client.on('message', message => {
         // Send "pong" to the same channel
         message.channel.send('R dot ID dot');
     }
+    if (message.content.toLowerCase().includes('swift')) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    if (message.content.toLowerCase().includes('dramamine')) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    if (message.content.toLowerCase().includes('gucci')) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    if (message.content.toLowerCase().includes('gucci gang')) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    if (message.content.toLowerCase().includes('kanye')) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    if (message.content.toLowerCase().includes('slurp')) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    if (message.content.toLowerCase().includes('diesel')) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    // Only respond to this if this message was not sent by the bot
+    if (message.content.toLowerCase().includes('rinsed') && message.author.id != client.user.id) {
+        // Send "pong" to the same channel
+        message.channel.send('R dot ID dot');
+    }
+    
+    
+    
     
     
     /* JarrodNoises Area*/
     messageCount++;
     
     if(messageCount == restartCount) {
+        // Only sends this message if the last message was not sent by the bot
+        if(message.author.id != client.user.id){
+            message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
+            messageCount = 0;
+            restartCount = Math.floor(Math.random() * 25) + 5;
+            console.log("messages until next JarrodNoise: " + restartCount);
+        } else {
+            messageCount--;
+        }
         
-        message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
-        messageCount = 0;
-        restartCount = Math.floor(Math.random() * 25) + 5;
-        console.log("messages until next JarrodNoise: " + restartCount);
         
     }
     
