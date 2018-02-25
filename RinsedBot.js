@@ -33,10 +33,10 @@ client.on('ready', () => {
     
     // Notify users on server of Bot Connect
     // Find the testing server
-    var debugGuild = client.guilds.find('name', 'Bot-Testing');
+    var debugGuild = client.guilds.find('name', 'MAD Club');
     // Find the debug channel
-    var debugChannel = debugGuild.channels.find('name', 'debug');
-    debugChannel.send("Just got back from a Slurp!");
+    var debugChannel = debugGuild.channels.find('name', 'bot-testing');
+    debugChannel.send("Just got back from a Slurp!(reconnected)");
     
     console.log("messages until next JarrodNoise: " + restartCount);
     
