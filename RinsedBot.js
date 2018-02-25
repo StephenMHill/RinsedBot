@@ -13,8 +13,8 @@ var settings = require('./conf.js');
 
 // Declare variables from the conf.js file
 var tokenn = settings.tokenn;
-var mainChannelID = settings.mainChannelID;
-var debugChannelID = settings.debugChannelID;
+//var mainChannelID = settings.mainChannelID;
+//var debugChannelID = settings.debugChannelID;
 
 // The token of your bot - https://discordapp.com/developers/applications/me
 const token = tokenn;
@@ -109,36 +109,36 @@ client.on('message', message => {
     }
     if (message.content.toLowerCase().includes('swift')) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('Are you using Kotlin?');
     }
     if (message.content.toLowerCase().includes('dramamine')) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('If I get 1000 people to join the Dollar Shave Club, I get 83 years of free razers.');
     }
     if (message.content.toLowerCase().includes('gucci')) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('Did you go to bed last night?');
     }
     if (message.content.toLowerCase().includes('gucci gang')) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('Gucci gang, Gucci gang, Gucci gang, Gucci gang\nGucci gang, Gucci gang, Gucci gang (Gucci gang!)');
     }
     if (message.content.toLowerCase().includes('kanye')) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('Buy some Kanye Coin!');
     }
-    if (message.content.toLowerCase().includes('slurp')) {
+    if (message.content.toLowerCase().includes('slurp') && message.author.id != client.user.id) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('You up for a slup?');
     }
     if (message.content.toLowerCase().includes('diesel')) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('Gotta drink that Mid');
     }
     // Only respond to this if this message was not sent by the bot
     if (message.content.toLowerCase().includes('rinsed') && message.author.id != client.user.id) {
         // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
+        message.channel.send('I got Rinsed!');
     }
     
     
