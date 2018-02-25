@@ -68,8 +68,8 @@ client.on('message', message => {
         message.channel.send("President - James Pierce\nVice-President - Adam Bazzi\nSecretary - Kari Gignac\nTreasurer - Chris Dias");
     } else if(message.content.toLowerCase().startsWith("!help")) {
         message.channel.send("Here is a list of the available commands  :\n\n" + 
-                     //"**!schedule#** will display that years schedule (replace # with the number).\n\n" + 
-                     //"**!schedules** will display all three schedules.\n\n" +
+                     "**!schedule#** will display that years schedule (replace # with the number).\n\n" + 
+                     "**!schedules** will display all three schedules.\n\n" +
                      "**!execs** will display the list of club executives.\n\n" + 
                      "**!help** will display this list of available commands.");
     } else if(message.content.toLowerCase().startsWith("!schedule1") || message.content.toLowerCase().startsWith("!s1")) {
@@ -99,6 +99,8 @@ client.on('message', message => {
                 
             ]
         });
+    } else if (message.content.toLowerCase().startsWith("!bang")) {
+        message.channel.send("Duckhunt has not been implemented yet. Keep your eyes peeled ;)");
     }
     
     /* Messaging Logic that is separate from normal commands */
