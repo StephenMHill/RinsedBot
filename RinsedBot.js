@@ -13,8 +13,8 @@ var settings = require('./conf.js');
 
 // Declare variables from the conf.js file
 var tokenn = settings.tokenn;
-var mainChannelID = settings.mainChannelID;
-var debugChannelID = settings.debugChannelID;
+//var mainChannelID = settings.mainChannelID;
+//var debugChannelID = settings.debugChannelID;
 
 // The token of your bot - https://discordapp.com/developers/applications/me
 const token = tokenn;
@@ -33,10 +33,10 @@ client.on('ready', () => {
     
     // Notify users on server of Bot Connect
     // Find the testing server
-    var debugGuild = client.guilds.find('name', 'Bot-Testing');
+    var debugGuild = client.guilds.find('name', 'MAD Club');
     // Find the debug channel
-    var debugChannel = debugGuild.channels.find('name', 'debug');
-    debugChannel.send("Just got back from a Slurp!");
+    var debugChannel = debugGuild.channels.find('name', 'bot-testing');
+    debugChannel.send("Just got back from a Slurp!(reconnected)");
     
     console.log("messages until next JarrodNoise: " + restartCount);
     
@@ -68,8 +68,8 @@ client.on('message', message => {
         message.channel.send("President - James Pierce\nVice-President - Adam Bazzi\nSecretary - Kari Gignac\nTreasurer - Chris Dias");
     } else if(message.content.toLowerCase().startsWith("!help")) {
         message.channel.send("Here is a list of the available commands  :\n\n" + 
-                     //"**!schedule#** will display that years schedule (replace # with the number).\n\n" + 
-                     //"**!schedules** will display all three schedules.\n\n" +
+                     "**!schedule#** will display that years schedule (replace # with the number).\n\n" + 
+                     "**!schedules** will display all three schedules.\n\n" +
                      "**!execs** will display the list of club executives.\n\n" + 
                      "**!help** will display this list of available commands.");
     } else if(message.content.toLowerCase().startsWith("!schedule1") || message.content.toLowerCase().startsWith("!s1")) {
@@ -99,6 +99,8 @@ client.on('message', message => {
                 
             ]
         });
+    } else if (message.content.toLowerCase().startsWith("!bang")) {
+        message.channel.send("Duckhunt has not been implemented yet. Keep your eyes peeled ;)");
     }
     
     /* Messaging Logic that is separate from normal commands */
@@ -107,17 +109,58 @@ client.on('message', message => {
         // Send "pong" to the same channel
         message.channel.send('R dot ID dot');
     }
+    if (message.content.toLowerCase().includes('swift')) {
+        // Send "pong" to the same channel
+        message.channel.send('Are you using Kotlin?');
+    }
+    if (message.content.toLowerCase().includes('dramamine')) {
+        // Send "pong" to the same channel
+        message.channel.send('If I get 1000 people to join the Dollar Shave Club, I get 83 years of free razers.');
+    }
+    if (message.content.toLowerCase().includes('gucci')) {
+        // Send "pong" to the same channel
+        message.channel.send('Did you go to bed last night?');
+    }
+    if (message.content.toLowerCase().includes('gucci gang')) {
+        // Send "pong" to the same channel
+        message.channel.send('Gucci gang, Gucci gang, Gucci gang, Gucci gang\nGucci gang, Gucci gang, Gucci gang (Gucci gang!)');
+    }
+    if (message.content.toLowerCase().includes('kanye')) {
+        // Send "pong" to the same channel
+        message.channel.send('Buy some Kanye Coin!');
+    }
+    if (message.content.toLowerCase().includes('slurp') && message.author.id != client.user.id) {
+        // Send "pong" to the same channel
+        message.channel.send('You up for a slup?');
+    }
+    if (message.content.toLowerCase().includes('diesel')) {
+        // Send "pong" to the same channel
+        message.channel.send('Gotta drink that Mid');
+    }
+    // Only respond to this if this message was not sent by the bot
+    if (message.content.toLowerCase().includes('rinsed') && message.author.id != client.user.id) {
+        // Send "pong" to the same channel
+        message.channel.send('I got Rinsed!');
+    }
+    
+    
+    
     
     
     /* JarrodNoises Area*/
     messageCount++;
     
     if(messageCount == restartCount) {
+        // Only sends this message if the last message was not sent by the bot
+        if(message.author.id != client.user.id){
+            message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
+            messageCount = 0;
+            restartCount = Math.floor(Math.random() * 25) + 5;
+            console.log("messages until next JarrodNoise: " + restartCount);
+        } else {
+            messageCount--;
+        }
         
-        message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
-        messageCount = 0;
-        restartCount = Math.floor(Math.random() * 25) + 5;
-        console.log("messages until next JarrodNoise: " + restartCount);
         
     }
     
