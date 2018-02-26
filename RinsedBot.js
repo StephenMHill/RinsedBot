@@ -2,6 +2,18 @@
   A bot for the MAD Club Discord. Written in Discord.js
 */
 
+/* Constants */
+// Room Schedules
+const ROOM_52_SCHEDULE = ["./img/052_Winter_2018.png"];
+const ROOM_55_SCHEDULE = ["./img/055_Winter_2018.png"];
+const ROOM_61_SCHEDULE = ["./img/061_Winter_2018.png"];
+const ROOM_SCHEDULES = [ROOM_52_SCHEDULE, ROOM_55_SCHEDULE, ROOM_61_SCHEDULE];
+// Class Schedules
+const FIRST_YEAR_SCHEDULE = "./img/First-Year.png";
+const SECOND_YEAR_SCHEDULE = "./img/Second-Year.png";
+const THIRD_YEAR_SCHEDULE = "./img/Third-Year.png";
+const CLASS_SCHEDULES = [FIRST_YEAR_SCHEDULE, SECOND_YEAR_SCHEDULE, THIRD_YEAR_SCHEDULE];
+
 /* Variables */
 // Import the discord.js module
 const Discord = require('discord.js');
@@ -13,16 +25,12 @@ var settings = require('./conf.js');
 
 // Declare variables from the conf.js file
 var tokenn = settings.tokenn;
-//var mainChannelID = settings.mainChannelID;
-//var debugChannelID = settings.debugChannelID;
 
 // The token of your bot - https://discordapp.com/developers/applications/me
 const token = tokenn;
 
-
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
-
 
 /* Events */
 // This will run when the bot is connected and ready
@@ -34,13 +42,19 @@ client.on('ready', () => {
     // Notify users on server of Bot Connect
     // Find the testing server
     var debugGuild = client.guilds.find('name', 'MAD Club');
-    // Find the debug channel
-    var debugChannel = debugGuild.channels.find('name', 'bot-testing');
-    debugChannel.send("Just got back from a Slurp!(reconnected)");
     
+    // Checks if the debugGUild channel exists
+    if (debugGuild) { 
+        // Find the debug channel
+        var debugChannel = debugGuild.channels.find('name', 'bot-testing');
+        // Checks if that channel exists
+        if (debugChannel) {
+            debugChannel.send("Just got back from a Slurp!(reconnected)");
+        }
+    }
+
     console.log("messages until next JarrodNoise: " + restartCount);
-    
-    
+
     // Output all servers(guilds) that the bot is currently in
     client.guilds.forEach( function(guild) {
         console.log("\nName: " + guild.name);
@@ -54,14 +68,15 @@ client.on('ready', () => {
 
 // Respond to messages with various logic
 client.on('message', message => {
+    // This line prevents from the bot on answering itself
+    if (message.author.bot) return;
     
     // Log all messages
     console.log("\n" + message.author.username);
     console.log("in #" + message.channel.name);
     console.log("'" + message.content + "'");
     console.log("----------");
-    
-    
+
     /* Command Message Logic */
     
     if(message.content.toLowerCase().startsWith("!execs")) {
@@ -74,33 +89,38 @@ client.on('message', message => {
                      "**!help** will display this list of available commands.");
     } else if(message.content.toLowerCase().startsWith("!schedule1") || message.content.toLowerCase().startsWith("!s1")) {
         message.channel.send("First Year Schedule", {
-            files: [
-                "./img/First-Year.png"
-            ]
+            files: [FIRST_YEAR_SCHEDULE]
         });
     } else if(message.content.toLowerCase().startsWith("!schedule2") || message.content.toLowerCase().startsWith("!s2")) {
         message.channel.send("Second Year Schedule", {
-            files: [
-                "./img/Second-Year.png"
-            ]
+            files: [SECOND_YEAR_SCHEDULE]
         });
     } else if(message.content.toLowerCase().startsWith("!schedule3") || message.content.toLowerCase().startsWith("!s3")) {
         message.channel.send("First Year Schedule", {
-            files: [
-                "./img/Third-Year.png"
-            ]
+            files: [THIRD_YEAR_SCHEDULE]
         });
     } else if(message.content.toLowerCase().startsWith("!schedules") || message.content.toLowerCase().startsWith("!ss")) {
         message.channel.send("All Schedules", {
-            files: [
-                "./img/First-Year.png",
-                "./img/Second-Year.png",
-                "./img/Third-Year.png"
-                
-            ]
+            files: CLASS_SCHEDULES
         });
     } else if (message.content.toLowerCase().startsWith("!bang")) {
         message.channel.send("Duckhunt has not been implemented yet. Keep your eyes peeled ;)");
+    } else if (message.content.toLowerCase().startsWith("!rooms")) {
+        message.channel.send("All Room Schedules", {
+            files: ROOM_SCHEDULES
+        })
+    } else if (message.content.toLowerCase().startsWith("!room52")) {
+        message.channel.send("Room 52:", { 
+            files: [ROOM_52_SCHEDULE]
+        });
+    } else if (message.content.toLowerCase().startsWith("!room55")) {
+        message.channel.send("Room 55:", { 
+            files: [ROOM_55_SCHEDULE]
+        });
+    } else if (message.content.toLowerCase().startsWith("!room61")) {
+        message.channel.send("Room 61:", { 
+            files: [ROOM_61_SCHEDULE]
+        });
     }
     
     /* Messaging Logic that is separate from normal commands */
@@ -129,7 +149,7 @@ client.on('message', message => {
         // Send "pong" to the same channel
         message.channel.send('Buy some Kanye Coin!');
     }
-    if (message.content.toLowerCase().includes('slurp') && message.author.id != client.user.id) {
+    if (message.content.toLowerCase().includes('slurp') && message.author.id !== client.user.id) {
         // Send "pong" to the same channel
         message.channel.send('You up for a slup?');
     }
@@ -138,21 +158,17 @@ client.on('message', message => {
         message.channel.send('Gotta drink that Mid');
     }
     // Only respond to this if this message was not sent by the bot
-    if (message.content.toLowerCase().includes('rinsed') && message.author.id != client.user.id) {
+    if (message.content.toLowerCase().includes('rinsed') && message.author.id !== client.user.id) {
         // Send "pong" to the same channel
         message.channel.send('I got Rinsed!');
     }
-    
-    
-    
-    
-    
+
     /* JarrodNoises Area*/
     messageCount++;
     
-    if(messageCount == restartCount) {
+    if(messageCount === restartCount) {
         // Only sends this message if the last message was not sent by the bot
-        if(message.author.id != client.user.id){
+        if(message.author.id !== client.user.id){
             message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
             messageCount = 0;
             restartCount = Math.floor(Math.random() * 25) + 5;
@@ -160,11 +176,7 @@ client.on('message', message => {
         } else {
             messageCount--;
         }
-        
-        
     }
-    
-    
     
 });
 
@@ -181,12 +193,9 @@ client.on('message', message => {
 // Respond to the bot disconnecting
 client.on("disconnect", () => {
     console.log("Bot disconnected!");
-    client.login(token);
 });
 
-
 /* Function Declarations */
-
 
 /* Log In */
 // Log our bot in
