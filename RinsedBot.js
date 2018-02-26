@@ -4,9 +4,9 @@
 
 /* Constants */
 // Room Schedules
-const ROOM_52_SCHEDULE = ["./img/052_Winter_2018.png"];
-const ROOM_55_SCHEDULE = ["./img/055_Winter_2018.png"];
-const ROOM_61_SCHEDULE = ["./img/061_Winter_2018.png"];
+const ROOM_52_SCHEDULE = "./img/052_Winter_2018.png";
+const ROOM_55_SCHEDULE = "./img/055_Winter_2018.png";
+const ROOM_61_SCHEDULE = "./img/061_Winter_2018.png";
 const ROOM_SCHEDULES = [ROOM_52_SCHEDULE, ROOM_55_SCHEDULE, ROOM_61_SCHEDULE];
 // Class Schedules
 const FIRST_YEAR_SCHEDULE = "./img/First-Year.png";
