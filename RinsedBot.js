@@ -13,16 +13,12 @@ var settings = require('./conf.js');
 
 // Declare variables from the conf.js file
 var tokenn = settings.tokenn;
-//var mainChannelID = settings.mainChannelID;
-//var debugChannelID = settings.debugChannelID;
 
 // The token of your bot - https://discordapp.com/developers/applications/me
 const token = tokenn;
 
-
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
-
 
 /* Events */
 // This will run when the bot is connected and ready
@@ -34,13 +30,19 @@ client.on('ready', () => {
     // Notify users on server of Bot Connect
     // Find the testing server
     var debugGuild = client.guilds.find('name', 'MAD Club');
-    // Find the debug channel
-    var debugChannel = debugGuild.channels.find('name', 'bot-testing');
-    debugChannel.send("Just got back from a Slurp!(reconnected)");
     
+    // Checks if the debugGUild channel exists
+    if (debugGuild) { 
+        // Find the debug channel
+        var debugChannel = debugGuild.channels.find('name', 'bot-testing');
+        // Checks if that channel exists
+        if (debugChannel) {
+            debugChannel.send("Just got back from a Slurp!(reconnected)");
+        }
+    }
+
     console.log("messages until next JarrodNoise: " + restartCount);
-    
-    
+
     // Output all servers(guilds) that the bot is currently in
     client.guilds.forEach( function(guild) {
         console.log("\nName: " + guild.name);
