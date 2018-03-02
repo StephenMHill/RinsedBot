@@ -22,6 +22,8 @@ const client = new Discord.Client();
 
 // Import all settings from the conf.js file
 var settings = require('./conf.js');
+var MadAPI = require('./StClairAPI.js');
+var stclairAPI = new MadAPI(settings.apiKey);
 
 // Declare variables from the conf.js file
 var tokenn = settings.tokenn;
@@ -121,8 +123,20 @@ client.on('message', message => {
         message.channel.send("Room 61:", { 
             files: [ROOM_61_SCHEDULE]
         });
+    } else if (message.content.toLowerCase() === "!currentnews") {
+        // retrieve from the news
+        stclairAPI.getNews(function(error, response, body) {
+            if (response.statusCode === 200) {
+                let data = JSON.parse(body);
+                let updatedNews = data.sort(function(a, b) {
+                    return new Date(a.createdAt) < new Date(b.createdAt)
+                });
+                console.log(updatedNews);
+                message.channel.send(updatedNews[0].title);
+                message.channel.send(updatedNews[0].content);
+            }
+        });
     }
-    
     /* Messaging Logic that is separate from normal commands */
     // If the message contains 'android'
     if (message.content.toLowerCase().includes('android')) {
