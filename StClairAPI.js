@@ -8,7 +8,7 @@ function StClairAPI(apiKey) {
   /** 
    * Gets the current news from St. Clair MAD
   */
-  this.getNews = function(callback) {
+  this.getCurrentNews = function(callback) {
     // get the url
     let url = BASE_URL + "news";
     let options = {
@@ -20,6 +20,23 @@ function StClairAPI(apiKey) {
     // set up the headers and stuff
     return request(options, callback);
   };
+
+  /**
+   * Gets the current events
+   * @param {*} callback 
+   */
+  this.getCurrentEvents = function(callback) {
+    // get the url
+    let url = BASE_URL + "events";
+    let options = {
+      "url": url,
+      "headers": {
+        "Authorization": this.apiKey
+      }
+    };
+    // set up the headers and stuff
+    return request(options, callback);
+  }
 }
 
 module.exports = StClairAPI;
