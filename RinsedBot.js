@@ -22,6 +22,8 @@ const client = new Discord.Client();
 
 // Import all settings from the conf.js file
 var settings = require('./conf.js');
+var MadAPI = require('./StClairAPI.js');
+var stclairAPI = new MadAPI(settings.apiKey);
 
 // Declare variables from the conf.js file
 var tokenn = settings.tokenn;
@@ -121,8 +123,38 @@ client.on('message', message => {
         message.channel.send("Room 61:", { 
             files: [ROOM_61_SCHEDULE]
         });
+    } else if (message.content.toLowerCase() === "!currentnews") {
+        // retrieve from the news
+        stclairAPI.getCurrentNews(function(error, response, body) {
+            if (response.statusCode === 200) {
+                let data = JSON.parse(body);
+                let updatedNews = data.sort(function(a, b) {
+                    return new Date(a.createdAt) < new Date(b.createdAt)
+                });
+                content = "**" + updatedNews[0].title + "**\n\n";
+                content += updatedNews[0].content;
+
+                message.channel.send(content);
+            }
+        });
+    } else if (message.content.toLowerCase() === "!currentevents") {
+        // retrieve the event
+        stclairAPI.getCurrentEvents(function(error, response, body) {
+            if (response.statusCode === 200) {
+                let data = JSON.parse(body);
+                let updatedEvents = data.sort(function(a, b) {
+                    return new Date(a.createdAt) < new Date(b.createdAt)
+                });
+
+                content = "**" + updatedEvents[0].title + "**";
+                content += "\n" + updatedEvents[0].description;
+                content += "\nStart Date: " + new Date(updatedEvents[0].startDate);
+                content += "\nEnd Date: " + new Date(updatedEvents[0].endDate);
+
+                message.channel.send(content);
+            }
+        });
     }
-    
     /* Messaging Logic that is separate from normal commands */
     // If the message contains 'android'
     if (message.content.toLowerCase().includes('android')) {
