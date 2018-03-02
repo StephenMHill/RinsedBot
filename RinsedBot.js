@@ -131,7 +131,6 @@ client.on('message', message => {
                 let updatedNews = data.sort(function(a, b) {
                     return new Date(a.createdAt) < new Date(b.createdAt)
                 });
-                console.log(updatedNews);
                 message.channel.send(updatedNews[0].title);
                 message.channel.send(updatedNews[0].content);
             }
