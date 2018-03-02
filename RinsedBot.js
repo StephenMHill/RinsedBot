@@ -148,8 +148,8 @@ client.on('message', message => {
 
                 content = "**" + updatedEvents[0].title + "**";
                 content += "\n" + updatedEvents[0].description;
-                content += "\nStart Date: " + updatedEvents[0].startDate;
-                content += "\nEnd Date: " + updatedEvents[0].endDate;
+                content += "\nStart Date: " + new Date(updatedEvents[0].startDate);
+                content += "\nEnd Date: " + new Date(updatedEvents[0].endDate);
 
                 message.channel.send(content);
             }
