@@ -19,14 +19,8 @@ var commandList = glob.sync("./commands/*.js").map((file) => {
 // Import all settings from the conf.js file
 var settings = require('./conf.js');
 
-const StClairAPI = require('./StClairAPI.js');
-var madAPI = new StClairAPI(settings.apiKey);
-
 // Declare variables from the conf.js file
-var tokenn = settings.tokenn;
-
-// The token of your bot - https://discordapp.com/developers/applications/me
-const token = tokenn;
+const token = settings.token;
 
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
@@ -96,38 +90,7 @@ client.on('message', message => {
     } else {
         message.channel.send("This command doesn't exist!");
     }
-    // } else if (message.content.toLowerCase() === "!currentnews") {
-    //     // retrieve from the news
-    //     madAPI.getCurrentNews(function(error, response, body) {
-    //         if (response.statusCode === 200) {
-    //             let data = JSON.parse(body);
-    //             let updatedNews = data.sort(function(a, b) {
-    //                 return new Date(a.createdAt) < new Date(b.createdAt)
-    //             });
-    //             content = "**" + updatedNews[0].title + "**\n\n";
-    //             content += updatedNews[0].content;
 
-    //             message.channel.send(content);
-    //         }
-    //     });
-    // } else if (message.content.toLowerCase() === "!currentevents") {
-    //     // retrieve the event
-    //     madAPI.getCurrentEvents(function(error, response, body) {
-    //         if (response.statusCode === 200) {
-    //             let data = JSON.parse(body);
-    //             let updatedEvents = data.sort(function(a, b) {
-    //                 return new Date(a.createdAt) < new Date(b.createdAt)
-    //             });
-
-    //             content = "**" + updatedEvents[0].title + "**";
-    //             content += "\n" + updatedEvents[0].description;
-    //             content += "\nStart Date: " + new Date(updatedEvents[0].startDate);
-    //             content += "\nEnd Date: " + new Date(updatedEvents[0].endDate);
-
-    //             message.channel.send(content);
-    //         }
-    //     });
-    // }
     /* Messaging Logic that is separate from normal commands */
     // If the message contains 'android'
     if (message.content.toLowerCase().includes('android')) {
@@ -173,14 +136,10 @@ client.on('message', message => {
     
     if(messageCount === restartCount) {
         // Only sends this message if the last message was not sent by the bot
-        if(message.author.id !== client.user.id){
-            message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
-            messageCount = 0;
-            restartCount = Math.floor(Math.random() * 25) + 5;
-            console.log("messages until next JarrodNoise: " + restartCount);
-        } else {
-            messageCount--;
-        }
+        message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
+        messageCount = 0;
+        restartCount = Math.floor(Math.random() * 25) + 5;
+        console.log("messages until next JarrodNoise: " + restartCount);
     }
     
 });
