@@ -96,38 +96,7 @@ client.on('message', message => {
     } else {
         message.channel.send("This command doesn't exist!");
     }
-
     
-    // if(message.content.toLowerCase().startsWith("!execs")) {
-    //     message.channel.send("President - James Pierce\nVice-President - Adam Bazzi\nSecretary - Kari Gignac\nTreasurer - Chris Dias");
-    // } else if(message.content.toLowerCase().startsWith("!help")) {
-    //     message.channel.send("Here is a list of the available commands  :\n\n" + 
-    //                  "**!schedule#** will display that years schedule (replace # with the number).\n\n" + 
-    //                  "**!schedules** will display all three schedules.\n\n" +
-    //                  "**!execs** will display the list of club executives.\n\n" + 
-    //                  "**!help** will display this list of available commands.");
-    // } else if(message.content.toLowerCase().startsWith("!schedule1") || message.content.toLowerCase().startsWith("!s1")) {
-    //     message.channel.send("First Year Schedule", {
-    //         files: [FIRST_YEAR_SCHEDULE]
-    //     });
-    // } else if(message.content.toLowerCase().startsWith("!schedule2") || message.content.toLowerCase().startsWith("!s2")) {
-    //     message.channel.send("Second Year Schedule", {
-    //         files: [SECOND_YEAR_SCHEDULE]
-    //     });
-    // } else if(message.content.toLowerCase().startsWith("!schedule3") || message.content.toLowerCase().startsWith("!s3")) {
-    //     message.channel.send("First Year Schedule", {
-    //         files: [THIRD_YEAR_SCHEDULE]
-    //     });
-    // } else if(message.content.toLowerCase().startsWith("!schedules") || message.content.toLowerCase().startsWith("!ss")) {
-    //     message.channel.send("All Schedules", {
-    //         files: CLASS_SCHEDULES
-    //     });
-    // } else if (message.content.toLowerCase().startsWith("!bang")) {
-    //     message.channel.send("Duckhunt has not been implemented yet. Keep your eyes peeled ;)");
-    // } else if (message.content.toLowerCase().startsWith("!rooms")) {
-    //     message.channel.send("All Room Schedules", {
-    //         files: ROOM_SCHEDULES
-    //     })
     // } else if (message.content.toLowerCase().startsWith("!room52")) {
     //     message.channel.send("Room 52:", { 
     //         files: [ROOM_52_SCHEDULE]
