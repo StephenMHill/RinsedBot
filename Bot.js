@@ -22,8 +22,10 @@ var settings = require('./conf.js');
 // Declare variables from the conf.js file
 const token = settings.token;
 
+// Other Settings
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
+var buzzword = require('./plugins/buzzword.js');
 
 /* Events */
 // This will run when the bot is connected and ready
@@ -63,7 +65,6 @@ client.on('ready', () => {
 client.on('message', message => {
     // This line prevents from the bot on answering itself
     if (message.author.bot) return;
-    if (message.content.indexOf(settings.prefix) !== 0) return;
     
     // Log all messages
     console.log("\n" + message.author.username);
@@ -87,49 +88,11 @@ client.on('message', message => {
         } catch (err) {
             console.error(err);
         }
-    } else {
-        message.channel.send("This command doesn't exist!");
     }
 
     /* Messaging Logic that is separate from normal commands */
     // If the message contains 'android'
-    if (message.content.toLowerCase().includes('android')) {
-        // Send "pong" to the same channel
-        message.channel.send('R dot ID dot');
-    }
-    if (message.content.toLowerCase().includes('swift')) {
-        // Send "pong" to the same channel
-        message.channel.send('Are you using Kotlin?');
-    }
-    if (message.content.toLowerCase().includes('dramamine')) {
-        // Send "pong" to the same channel
-        message.channel.send('If I get 1000 people to join the Dollar Shave Club, I get 83 years of free razers.');
-    }
-    if (message.content.toLowerCase().includes('gucci')) {
-        // Send "pong" to the same channel
-        message.channel.send('Did you go to bed last night?');
-    }
-    if (message.content.toLowerCase().includes('gucci gang')) {
-        // Send "pong" to the same channel
-        message.channel.send('Gucci gang, Gucci gang, Gucci gang, Gucci gang\nGucci gang, Gucci gang, Gucci gang (Gucci gang!)');
-    }
-    if (message.content.toLowerCase().includes('kanye')) {
-        // Send "pong" to the same channel
-        message.channel.send('Buy some Kanye Coin!');
-    }
-    if (message.content.toLowerCase().includes('slurp') && message.author.id !== client.user.id) {
-        // Send "pong" to the same channel
-        message.channel.send('You up for a slup?');
-    }
-    if (message.content.toLowerCase().includes('diesel')) {
-        // Send "pong" to the same channel
-        message.channel.send('Gotta drink that Mid');
-    }
-    // Only respond to this if this message was not sent by the bot
-    if (message.content.toLowerCase().includes('rinsed') && message.author.id !== client.user.id) {
-        // Send "pong" to the same channel
-        message.channel.send('I got Rinsed!');
-    }
+    buzzword.run(message);
 
     /* JarrodNoises Area*/
     messageCount++;
@@ -143,15 +106,6 @@ client.on('message', message => {
     }
     
 });
-
-/* Working, but not needed */
-/*client.on("presenceUpdate", function(oldPresence, newPresence) {
-    
-    
-	console.log(oldPresence.user.username + " was " + oldPresence.presence.status);
-	console.log(newPresence.user.username + " is " + newPresence.presence.status + "\n");
-    
-});*/
 
 
 // Respond to the bot disconnecting
