@@ -1,27 +1,24 @@
 /*
   A bot for the MAD Club Discord. Written in Discord.js
 */
-
-/* Constants */
-// Room Schedules
-const ROOM_52_SCHEDULE = "./img/052_Winter_2018.png";
-const ROOM_55_SCHEDULE = "./img/055_Winter_2018.png";
-const ROOM_61_SCHEDULE = "./img/061_Winter_2018.png";
-const ROOM_SCHEDULES = [ROOM_52_SCHEDULE, ROOM_55_SCHEDULE, ROOM_61_SCHEDULE];
-// Class Schedules
-const FIRST_YEAR_SCHEDULE = "./img/First-Year.png";
-const SECOND_YEAR_SCHEDULE = "./img/Second-Year.png";
-const THIRD_YEAR_SCHEDULE = "./img/Third-Year.png";
-const CLASS_SCHEDULES = [FIRST_YEAR_SCHEDULE, SECOND_YEAR_SCHEDULE, THIRD_YEAR_SCHEDULE];
-
 /* Variables */
 // Import the discord.js module
-const Discord = require('discord.js');
 // Create an instance of a Discord client
+const Discord = require('discord.js');
 const client = new Discord.Client();
+
+// File path finding
+var glob = require('glob');
+
+// Get a list of commands from the commands folder
+// This probably needs refactoring but that's ok
+var commandList = glob.sync("./commands/*.js").map((file) => {
+    return file.split("/")[2].split(".")[0];
+});
 
 // Import all settings from the conf.js file
 var settings = require('./conf.js');
+
 const StClairAPI = require('./StClairAPI.js');
 var madAPI = new StClairAPI(settings.apiKey);
 
@@ -34,13 +31,12 @@ const token = tokenn;
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
 
-
 /* Events */
 // This will run when the bot is connected and ready
 client.on('ready', () => {
-    console.log('Connected!');
-    console.log("\nLogged in as: ");
-	console.log(client.user.username + " - (" + client.user.id + ")");
+    console.log("Connected!");
+    console.log("Logged in as: ");
+	console.log(`${client.user.username} - ${client.user.id})`);
     
     // Notify users on server of Bot Connect
     // Find the testing server
@@ -56,10 +52,10 @@ client.on('ready', () => {
         }
     }
 
-    console.log("messages until next JarrodNoise: " + restartCount);
+    console.log("Messages until next JarrodNoise: " + restartCount);
 
     // Output all servers(guilds) that the bot is currently in
-    client.guilds.forEach( function(guild) {
+    client.guilds.forEach(function(guild) {
         console.log("\nName: " + guild.name);
         console.log("ID: " + guild.id);
         console.log("Members: " + guild.memberCount);
@@ -88,12 +84,17 @@ client.on('message', message => {
     const command = args.shift().toLowerCase();
 
     // Attempt to load and run the files for us to use
-    try {
-        // We're using a let in here to ref the local scope, so it's not going to be a big deal.
-        let commandFile = require(`./commands/${command}.js`);
-        commandFile.run(client, message, args);
-    } catch (err) {
-        console.error(err);
+    // This will avoid the many if-else statements
+    // We're using a let in here to ref the local scope, so it's not going to be a big deal.
+    if (commandList.indexOf(command) !== -1) {
+        try {
+            let commandFile = require(`./commands/${command}.js`);
+            commandFile.run(client, message, args);
+        } catch (err) {
+            console.error(err);
+        }
+    } else {
+        message.channel.send("This command doesn't exist!");
     }
 
     
