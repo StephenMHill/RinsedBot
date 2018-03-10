@@ -22,8 +22,8 @@ const client = new Discord.Client();
 
 // Import all settings from the conf.js file
 var settings = require('./conf.js');
-var MadAPI = require('./StClairAPI.js');
-var stclairAPI = new MadAPI(settings.apiKey);
+const StClairAPI = require('./StClairAPI.js');
+var madAPI = new StClairAPI(settings.apiKey);
 
 // Declare variables from the conf.js file
 var tokenn = settings.tokenn;
@@ -126,7 +126,7 @@ client.on('message', message => {
         });
     } else if (message.content.toLowerCase() === "!currentnews") {
         // retrieve from the news
-        stclairAPI.getCurrentNews(function(error, response, body) {
+        madAPI.getCurrentNews(function(error, response, body) {
             if (response.statusCode === 200) {
                 let data = JSON.parse(body);
                 let updatedNews = data.sort(function(a, b) {
@@ -140,7 +140,7 @@ client.on('message', message => {
         });
     } else if (message.content.toLowerCase() === "!currentevents") {
         // retrieve the event
-        stclairAPI.getCurrentEvents(function(error, response, body) {
+        madAPI.getCurrentEvents(function(error, response, body) {
             if (response.statusCode === 200) {
                 let data = JSON.parse(body);
                 let updatedEvents = data.sort(function(a, b) {
