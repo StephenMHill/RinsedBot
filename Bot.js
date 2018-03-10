@@ -73,6 +73,7 @@ client.on('ready', () => {
 client.on('message', message => {
     // This line prevents from the bot on answering itself
     if (message.author.bot) return;
+    if (message.content.indexOf(settings.prefix) !== 0) return;
     
     // Log all messages
     console.log("\n" + message.author.username);
@@ -81,81 +82,95 @@ client.on('message', message => {
     console.log("----------");
 
     /* Command Message Logic */
-    
-    if(message.content.toLowerCase().startsWith("!execs")) {
-        message.channel.send("President - James Pierce\nVice-President - Adam Bazzi\nSecretary - Kari Gignac\nTreasurer - Chris Dias");
-    } else if(message.content.toLowerCase().startsWith("!help")) {
-        message.channel.send("Here is a list of the available commands  :\n\n" + 
-                     "**!schedule#** will display that years schedule (replace # with the number).\n\n" + 
-                     "**!schedules** will display all three schedules.\n\n" +
-                     "**!execs** will display the list of club executives.\n\n" + 
-                     "**!help** will display this list of available commands.");
-    } else if(message.content.toLowerCase().startsWith("!schedule1") || message.content.toLowerCase().startsWith("!s1")) {
-        message.channel.send("First Year Schedule", {
-            files: [FIRST_YEAR_SCHEDULE]
-        });
-    } else if(message.content.toLowerCase().startsWith("!schedule2") || message.content.toLowerCase().startsWith("!s2")) {
-        message.channel.send("Second Year Schedule", {
-            files: [SECOND_YEAR_SCHEDULE]
-        });
-    } else if(message.content.toLowerCase().startsWith("!schedule3") || message.content.toLowerCase().startsWith("!s3")) {
-        message.channel.send("First Year Schedule", {
-            files: [THIRD_YEAR_SCHEDULE]
-        });
-    } else if(message.content.toLowerCase().startsWith("!schedules") || message.content.toLowerCase().startsWith("!ss")) {
-        message.channel.send("All Schedules", {
-            files: CLASS_SCHEDULES
-        });
-    } else if (message.content.toLowerCase().startsWith("!bang")) {
-        message.channel.send("Duckhunt has not been implemented yet. Keep your eyes peeled ;)");
-    } else if (message.content.toLowerCase().startsWith("!rooms")) {
-        message.channel.send("All Room Schedules", {
-            files: ROOM_SCHEDULES
-        })
-    } else if (message.content.toLowerCase().startsWith("!room52")) {
-        message.channel.send("Room 52:", { 
-            files: [ROOM_52_SCHEDULE]
-        });
-    } else if (message.content.toLowerCase().startsWith("!room55")) {
-        message.channel.send("Room 55:", { 
-            files: [ROOM_55_SCHEDULE]
-        });
-    } else if (message.content.toLowerCase().startsWith("!room61")) {
-        message.channel.send("Room 61:", { 
-            files: [ROOM_61_SCHEDULE]
-        });
-    } else if (message.content.toLowerCase() === "!currentnews") {
-        // retrieve from the news
-        madAPI.getCurrentNews(function(error, response, body) {
-            if (response.statusCode === 200) {
-                let data = JSON.parse(body);
-                let updatedNews = data.sort(function(a, b) {
-                    return new Date(a.createdAt) < new Date(b.createdAt)
-                });
-                content = "**" + updatedNews[0].title + "**\n\n";
-                content += updatedNews[0].content;
 
-                message.channel.send(content);
-            }
-        });
-    } else if (message.content.toLowerCase() === "!currentevents") {
-        // retrieve the event
-        madAPI.getCurrentEvents(function(error, response, body) {
-            if (response.statusCode === 200) {
-                let data = JSON.parse(body);
-                let updatedEvents = data.sort(function(a, b) {
-                    return new Date(a.createdAt) < new Date(b.createdAt)
-                });
+    // this is a way to get the arguments we need in a command just in case we want to go through
+    const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
 
-                content = "**" + updatedEvents[0].title + "**";
-                content += "\n" + updatedEvents[0].description;
-                content += "\nStart Date: " + new Date(updatedEvents[0].startDate);
-                content += "\nEnd Date: " + new Date(updatedEvents[0].endDate);
-
-                message.channel.send(content);
-            }
-        });
+    // Attempt to load and run the files for us to use
+    try {
+        // We're using a let in here to ref the local scope, so it's not going to be a big deal.
+        let commandFile = require(`./commands/${command}.js`);
+        commandFile.run(client, message, args);
+    } catch (err) {
+        console.error(err);
     }
+
+    
+    // if(message.content.toLowerCase().startsWith("!execs")) {
+    //     message.channel.send("President - James Pierce\nVice-President - Adam Bazzi\nSecretary - Kari Gignac\nTreasurer - Chris Dias");
+    // } else if(message.content.toLowerCase().startsWith("!help")) {
+    //     message.channel.send("Here is a list of the available commands  :\n\n" + 
+    //                  "**!schedule#** will display that years schedule (replace # with the number).\n\n" + 
+    //                  "**!schedules** will display all three schedules.\n\n" +
+    //                  "**!execs** will display the list of club executives.\n\n" + 
+    //                  "**!help** will display this list of available commands.");
+    // } else if(message.content.toLowerCase().startsWith("!schedule1") || message.content.toLowerCase().startsWith("!s1")) {
+    //     message.channel.send("First Year Schedule", {
+    //         files: [FIRST_YEAR_SCHEDULE]
+    //     });
+    // } else if(message.content.toLowerCase().startsWith("!schedule2") || message.content.toLowerCase().startsWith("!s2")) {
+    //     message.channel.send("Second Year Schedule", {
+    //         files: [SECOND_YEAR_SCHEDULE]
+    //     });
+    // } else if(message.content.toLowerCase().startsWith("!schedule3") || message.content.toLowerCase().startsWith("!s3")) {
+    //     message.channel.send("First Year Schedule", {
+    //         files: [THIRD_YEAR_SCHEDULE]
+    //     });
+    // } else if(message.content.toLowerCase().startsWith("!schedules") || message.content.toLowerCase().startsWith("!ss")) {
+    //     message.channel.send("All Schedules", {
+    //         files: CLASS_SCHEDULES
+    //     });
+    // } else if (message.content.toLowerCase().startsWith("!bang")) {
+    //     message.channel.send("Duckhunt has not been implemented yet. Keep your eyes peeled ;)");
+    // } else if (message.content.toLowerCase().startsWith("!rooms")) {
+    //     message.channel.send("All Room Schedules", {
+    //         files: ROOM_SCHEDULES
+    //     })
+    // } else if (message.content.toLowerCase().startsWith("!room52")) {
+    //     message.channel.send("Room 52:", { 
+    //         files: [ROOM_52_SCHEDULE]
+    //     });
+    // } else if (message.content.toLowerCase().startsWith("!room55")) {
+    //     message.channel.send("Room 55:", { 
+    //         files: [ROOM_55_SCHEDULE]
+    //     });
+    // } else if (message.content.toLowerCase().startsWith("!room61")) {
+    //     message.channel.send("Room 61:", { 
+    //         files: [ROOM_61_SCHEDULE]
+    //     });
+    // } else if (message.content.toLowerCase() === "!currentnews") {
+    //     // retrieve from the news
+    //     madAPI.getCurrentNews(function(error, response, body) {
+    //         if (response.statusCode === 200) {
+    //             let data = JSON.parse(body);
+    //             let updatedNews = data.sort(function(a, b) {
+    //                 return new Date(a.createdAt) < new Date(b.createdAt)
+    //             });
+    //             content = "**" + updatedNews[0].title + "**\n\n";
+    //             content += updatedNews[0].content;
+
+    //             message.channel.send(content);
+    //         }
+    //     });
+    // } else if (message.content.toLowerCase() === "!currentevents") {
+    //     // retrieve the event
+    //     madAPI.getCurrentEvents(function(error, response, body) {
+    //         if (response.statusCode === 200) {
+    //             let data = JSON.parse(body);
+    //             let updatedEvents = data.sort(function(a, b) {
+    //                 return new Date(a.createdAt) < new Date(b.createdAt)
+    //             });
+
+    //             content = "**" + updatedEvents[0].title + "**";
+    //             content += "\n" + updatedEvents[0].description;
+    //             content += "\nStart Date: " + new Date(updatedEvents[0].startDate);
+    //             content += "\nEnd Date: " + new Date(updatedEvents[0].endDate);
+
+    //             message.channel.send(content);
+    //         }
+    //     });
+    // }
     /* Messaging Logic that is separate from normal commands */
     // If the message contains 'android'
     if (message.content.toLowerCase().includes('android')) {
