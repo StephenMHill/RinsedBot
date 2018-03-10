@@ -96,19 +96,6 @@ client.on('message', message => {
     } else {
         message.channel.send("This command doesn't exist!");
     }
-    
-    // } else if (message.content.toLowerCase().startsWith("!room52")) {
-    //     message.channel.send("Room 52:", { 
-    //         files: [ROOM_52_SCHEDULE]
-    //     });
-    // } else if (message.content.toLowerCase().startsWith("!room55")) {
-    //     message.channel.send("Room 55:", { 
-    //         files: [ROOM_55_SCHEDULE]
-    //     });
-    // } else if (message.content.toLowerCase().startsWith("!room61")) {
-    //     message.channel.send("Room 61:", { 
-    //         files: [ROOM_61_SCHEDULE]
-    //     });
     // } else if (message.content.toLowerCase() === "!currentnews") {
     //     // retrieve from the news
     //     madAPI.getCurrentNews(function(error, response, body) {
