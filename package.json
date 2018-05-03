@@ -4,7 +4,7 @@
   "description": "A Discord bot to manage our server",
   "main": "RinsedBot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon RinsedBot.js"
   },
   "repository": {
     "type": "git",
