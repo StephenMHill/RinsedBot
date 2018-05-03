@@ -90,20 +90,31 @@ client.on('message', message => {
         }
     }
 
-    /* Messaging Logic that is separate from normal commands */
-    // If the message contains 'android'
-    buzzword.run(message);
 
+    // This is used to send messages in reponse to certain buzzwords. Removed to reduce spam.
+    
+    /* Messaging Logic that is separate from normal commands */
+    
+    //buzzword.run(message);
+
+    
+    
+    
+    // This has been commented out to reduce spam.
+    
+    // This will cause the bot to respond to every Xth message, where X is randomly chosen.
+    
     /* JarrodNoises Area*/
-    messageCount++;
+    /*messageCount++;
     
     if(messageCount === restartCount) {
         // Only sends this message if the last message was not sent by the bot
+
         message.channel.send("You've got to be kidding me!"); // Send a message after every 5th message after .5 seconds
         messageCount = 0;
         restartCount = Math.floor(Math.random() * 25) + 5;
         console.log("messages until next JarrodNoise: " + restartCount);
-    }
+    }*/
     
 });
 
