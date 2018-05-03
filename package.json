@@ -4,7 +4,7 @@
   "description": "A Discord bot to manage our server",
   "main": "RinsedBot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon RinsedBot.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "discord.js": "^11.3.0",
     "erlpack": "github:discordapp/erlpack",
     "glob": "^7.1.2",
+    "hoek": "^5.0.3",
     "libsodium-wrappers": "^0.5.4",
     "node-opus": "^0.2.7",
     "opusscript": "0.0.6",
