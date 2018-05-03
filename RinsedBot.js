@@ -103,9 +103,12 @@ client.on('message', message => {
         message.channel.send("Duckhunt has not been implemented yet. Keep your eyes peeled ;)");
     }
     
+    // These are examples of the bot responding to single words anywhere in a sentence.
+    
+    
     /* Messaging Logic that is separate from normal commands */
     // If the message contains 'android'
-    if (message.content.toLowerCase().includes('android')) {
+    /*if (message.content.toLowerCase().includes('android')) {
         // Send "pong" to the same channel
         message.channel.send('R dot ID dot');
     }
@@ -141,14 +144,14 @@ client.on('message', message => {
     if (message.content.toLowerCase().includes('rinsed') && message.author.id != client.user.id) {
         // Send "pong" to the same channel
         message.channel.send('I got Rinsed!');
-    }
+    }*/
     
     
     
-    
+    // This will cause the bot to respond to every Xth message, where X is randomly chosen.
     
     /* JarrodNoises Area*/
-    messageCount++;
+    /*messageCount++;
     
     if(messageCount == restartCount) {
         // Only sends this message if the last message was not sent by the bot
@@ -162,7 +165,7 @@ client.on('message', message => {
         }
         
         
-    }
+    }*/
     
     
     
