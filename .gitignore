@@ -60,3 +60,6 @@ typings/
 # Variable Information
 conf.js
 
+# Apple
+.DS_Store
+.idea/**
