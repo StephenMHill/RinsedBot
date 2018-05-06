@@ -20,6 +20,9 @@ var commandList = glob.sync("./commands/*.js").map((file) => {
 var settings = require('./conf.js');
 
 // Declare variables from the conf.js file
+var mainChannelID = settings.mainChannelID;
+var debugChannelID = settings.debugChannelID;
+
 const token = settings.token;
 
 // Other Settings
