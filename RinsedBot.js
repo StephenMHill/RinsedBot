@@ -12,13 +12,12 @@ const client = new Discord.Client();
 var settings = require('./conf.js');
 
 // Declare variables from the conf.js file
-var tokenn = settings.tokenn;
+var tokenn = settings.token;
 var mainChannelID = settings.mainChannelID;
 var debugChannelID = settings.debugChannelID;
 
 // The token of your bot - https://discordapp.com/developers/applications/me
 const token = tokenn;
-
 
 var messageCount = 0;
 var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
@@ -138,7 +137,6 @@ client.on('message', message => {
 // Respond to the bot disconnecting
 client.on("disconnect", () => {
     console.log("Bot disconnected!");
-    client.login(token);
 });
 
 
