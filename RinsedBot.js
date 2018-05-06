@@ -23,7 +23,7 @@ var settings = require('./conf.js');
 var mainChannelID = settings.mainChannelID;
 var debugChannelID = settings.debugChannelID;
 
-const token = settings.token;
+const token = settings.tokenn;
 
 // Other Settings
 var messageCount = 0;
