@@ -2,7 +2,6 @@
   A bot for the MAD Club Discord. Written in Discord.js
 */
 /* Variables */
-
 // setup clusters
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
