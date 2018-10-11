@@ -11,6 +11,17 @@ if (cluster.isMaster) {
     for (let i=0; i < numCPUs; i++) {
         cluster.fork();
     }
+
+    // Listen for dying workers
+    cluster.on('exit', function (worker) {
+
+        // Replace the dead worker,
+        // we're not sentimental
+        console.log('Worker %d died. Respawning new worker!', worker.id);
+        cluster.fork();
+
+    });
+
 } else {
     // Import the discord.js module
     // Create an instance of a Discord client
@@ -139,5 +150,6 @@ if (cluster.isMaster) {
     /* Log In */
     // Log our bot in
     client.login(token);
+
     console.log('Worker %d running!', cluster.worker.id);
 }
