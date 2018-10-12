@@ -43,9 +43,9 @@ if (cluster.isMaster) {
     const token = settings.token;
 
     // Other Settings
-    var messageCount = 0;
-    var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
-    var buzzword = require('./plugins/buzzword.js');
+    // var messageCount = 0;
+    // var restartCount = Math.floor(Math.random() * 25) + 5; // Sets a minimum of 5, maximum of 30
+    // var buzzword = require('./plugins/buzzword.js');
 
     /* Events */
     // This will run when the bot is connected and ready
@@ -67,8 +67,6 @@ if (cluster.isMaster) {
                 debugChannel.send("Just got back from a Slurp!(reconnected)");
             }
         }
-
-        console.log("Messages until next JarrodNoise: " + restartCount);
 
         // Output all servers(guilds) that the bot is currently in
         client.guilds.forEach(function(guild) {
