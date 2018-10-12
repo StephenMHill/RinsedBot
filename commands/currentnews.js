@@ -8,13 +8,17 @@ exports.run = (client, message, args) => {
     madAPI.getCurrentNews(function(error, response, body) {
         if (response.statusCode === 200) {
             let data = JSON.parse(body);
-            let updatedNews = data.sort(function(a, b) {
-                return new Date(a.createdAt) < new Date(b.createdAt)
-            });
-            content = "**" + updatedNews[0].title + "**\n\n";
-            content += updatedNews[0].content;
-
-            message.channel.send(content);
+            if (data.length > 0) {
+                let updatedNews = data.sort(function(a, b) {
+                    return new Date(a.createdAt) < new Date(b.createdAt)
+                });
+                content = "**" + updatedNews[0].title + "**\n\n";
+                content += updatedNews[0].content;
+    
+                message.channel.send(content);
+            } else {
+                message.channel.send('There are no current news on the site');
+            }
         }
     });
 }
