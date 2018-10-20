@@ -49,7 +49,7 @@ client.on('ready', () => {
     });
     
     //finding welcome channel
-    let welcomeChannel = bot.guilds.find(x => x.name === 'MAD Club').channels.find(x => x.name === 'welcome');
+    let welcomeChannel = client.guilds.find(x => x.name === 'MAD Club').channels.find(x => x.name === 'welcome');
     //roles for each year
     let yearRoles = ['412447604740194304', '412447648386252811', '412447711678300160'];
     //rules message id
@@ -63,9 +63,9 @@ client.on('ready', () => {
             //add a default reaction
             message.react('✅');
             //reaction added
-            bot.on('messageReactionAdd', (reaction, user) => {
+            client.on('messageReactionAdd', (reaction, user) => {
                 //check to make sure user isnt bot
-                if(user.id != bot.user.id) {
+                if(user.id != client.user.id) {
                     //user who reacted to the post as a GuildMember
                     let userWhoReacted = message.guild.members.find(x => x.id === user.id);
                     //if the reaction added is the checkmark
@@ -85,9 +85,9 @@ client.on('ready', () => {
                 message.react('503059817762652180').then(
                     message.react('503059830127329291')));
 
-            bot.on('messageReactionAdd', (reaction, user) => {
+            client.on('messageReactionAdd', (reaction, user) => {
                 //check to make sure user isnt bot
-                if(user.id != bot.user.id) {
+                if(user.id != client.user.id) {
                     //user who reacted to the post as a GuildMember
                     let userWhoReacted = message.guild.members.find(x => x.id === user.id);
                     //if user selected 1, 2, or 3, give them apporopriate roles
