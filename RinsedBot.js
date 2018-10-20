@@ -61,7 +61,9 @@ client.on('ready', () => {
         //if found, fetch rules message
         welcomeChannel.fetchMessage(rulesMessage).then(message => {
             //add a default reaction
-            message.react('✅');
+            message.clearReactions().then(function() {
+            	message.react('✅');
+            });
             //reaction added
             client.on('messageReactionAdd', (reaction, user) => {
                 //check to make sure user isnt bot
@@ -81,9 +83,13 @@ client.on('ready', () => {
         //fetch select year message
         welcomeChannel.fetchMessage(yearsMessage).then(message => {
             //add options
-            message.react('503059802575077377').then(
-                message.react('503059817762652180').then(
-                    message.react('503059830127329291')));
+            message.clearReactions().then(function() {
+            	message.react('503059802575077377').then(function() {
+            		message.react('503059817762652180').then(function() {
+            			message.react('503059830127329291');
+            		});
+            	});
+            });
 
             client.on('messageReactionAdd', (reaction, user) => {
                 //check to make sure user isnt bot
