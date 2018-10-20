@@ -83,13 +83,16 @@ client.on('ready', () => {
         //fetch select year message
         welcomeChannel.fetchMessage(yearsMessage).then(message => {
             //add options
-            message.clearReactions().then(function() {
-            	message.react('503059802575077377').then(function() {
-            		message.react('503059817762652180').then(function() {
-            			message.react('503059830127329291');
-            		});
-            	});
-            });
+            function addReactions() {
+                message.clearReactions().then(function() {
+                    message.react('503059802575077377').then(function() {
+                        message.react('503059817762652180').then(function() {
+                            message.react('503059830127329291');
+                        });
+                    });
+                });
+            }
+            addReactions();
 
             client.on('messageReactionAdd', (reaction, user) => {
                 //check to make sure user isnt bot
@@ -104,7 +107,7 @@ client.on('ready', () => {
                         userWhoReacted.removeRole(yearRoles[1]);
                         userWhoReacted.removeRole(yearRoles[2]);
                         //clear their reaction
-                        reaction.remove(user);
+                        addReactions();
                     } else if(reaction.emoji.id === '503059817762652180') {
                         //give them year 2 role
                         userWhoReacted.addRole(yearRoles[1]);
@@ -112,7 +115,7 @@ client.on('ready', () => {
                         userWhoReacted.removeRole(yearRoles[0]);
                         userWhoReacted.removeRole(yearRoles[2]);
                         //clear their reaction
-                        reaction.remove(user); 
+                        addReactions(); 
                     } else if(reaction.emoji.id === '503059830127329291') {
                         //give them year 3 role
                         userWhoReacted.addRole(yearRoles[2]);
@@ -120,7 +123,7 @@ client.on('ready', () => {
                         userWhoReacted.removeRole(yearRoles[0]);
                         userWhoReacted.removeRole(yearRoles[1]);
                         //clear their reaction
-                        reaction.remove(user); 
+                        addReactions();
                     }
                 }   
             });
