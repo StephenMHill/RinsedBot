@@ -48,6 +48,78 @@ client.on('ready', () => {
         console.log("Members: " + guild.memberCount);
     });
     
+    //finding welcome channel
+    let welcomeChannel = client.guilds.find(x => x.name === 'MAD Club').channels.find(x => x.name === 'welcome');
+    //roles for each year
+    let yearRoles = ['412447604740194304', '412447648386252811', '412447711678300160'];
+    //rules message id
+    let rulesMessage = '503202065854758933'; 
+    //years message id
+    let yearsMessage = '503202231768711178'; 
+ 
+    if(welcomeChannel) {
+        //if found, fetch rules message
+        welcomeChannel.fetchMessage(rulesMessage).then(message => {
+            //add a default reaction
+            message.react('✅');
+            //reaction added
+            client.on('messageReactionAdd', (reaction, user) => {
+                //check to make sure user isnt bot
+                if(user.id != client.user.id) {
+                    //user who reacted to the post as a GuildMember
+                    let userWhoReacted = message.guild.members.find(x => x.id === user.id);
+                    //if the reaction added is the checkmark
+                    if(reaction.emoji.name == '✅') {
+                            //give them student role
+                            userWhoReacted.addRole('478675916692783114');
+                            //clear their reaction
+                            reaction.remove(user);
+                    } 
+                 }       
+            });
+        }).catch(console.error);
+        //fetch select year message
+        welcomeChannel.fetchMessage(yearsMessage).then(message => {
+            //add options
+            message.react('503059802575077377').then(
+                message.react('503059817762652180').then(
+                    message.react('503059830127329291')));
+
+            client.on('messageReactionAdd', (reaction, user) => {
+                //check to make sure user isnt bot
+                if(user.id != client.user.id) {
+                    //user who reacted to the post as a GuildMember
+                    let userWhoReacted = message.guild.members.find(x => x.id === user.id);
+                    //if user selected 1, 2, or 3, give them apporopriate roles
+                    if(reaction.emoji.id == '503059802575077377') {
+                        //give them year 1 role
+                        userWhoReacted.addRole(yearRoles[0]);
+                        //remove any other year roles they might have
+                        userWhoReacted.removeRole(yearRoles[1]);
+                        userWhoReacted.removeRole(yearRoles[2]);
+                        //clear their reaction
+                        reaction.remove(user);
+                    } else if(reaction.emoji.id === '503059817762652180') {
+                        //give them year 2 role
+                        userWhoReacted.addRole(yearRoles[1]);
+                        //remove any other year roles they might have
+                        userWhoReacted.removeRole(yearRoles[0]);
+                        userWhoReacted.removeRole(yearRoles[2]);
+                        //clear their reaction
+                        reaction.remove(user); 
+                    } else if(reaction.emoji.id === '503059830127329291') {
+                        //give them year 3 role
+                        userWhoReacted.addRole(yearRoles[2]);
+                        //remove any other year roles they might have
+                        userWhoReacted.removeRole(yearRoles[0]);
+                        userWhoReacted.removeRole(yearRoles[1]);
+                        //clear their reaction
+                        reaction.remove(user); 
+                    }
+                }   
+            });
+        }).catch(console.error);
+    }
     
 });
 
