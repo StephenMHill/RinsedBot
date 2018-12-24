@@ -177,6 +177,10 @@ client.on('message', message => {
     
 });
 
+// Respond to message changes with various logic
+client.on('messageUpdate', (oldMsg, newMsg) => {
+    badword.run(newMsg, logsChannel);
+});
 
 // Respond to the bot disconnecting
 client.on("disconnect", () => {
