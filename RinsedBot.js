@@ -24,6 +24,7 @@ const token = settings.token;
 
 // Other Settings
 var badword = require('./plugins/badword.js');
+let logsChannel;
 
 /* Events */
 // This will run when the bot is connected and ready
@@ -48,6 +49,9 @@ client.on('ready', () => {
         console.log("ID: " + guild.id);
         console.log("Members: " + guild.memberCount);
     });
+
+    // finding logs channel
+    logsChannel = client.guilds.find(x => x.name === 'MAD Club').channels.find(x => x.name === 'logs');
     
     //finding welcome channel
     let welcomeChannel = client.guilds.find(x => x.name === 'MAD Club').channels.find(x => x.name === 'welcome');
@@ -151,7 +155,7 @@ client.on('message', message => {
     console.log("----------");
 
     // check for badwords
-    badword.run(message);
+    badword.run(message, logsChannel);
 
     /* Command Message Logic */
 
