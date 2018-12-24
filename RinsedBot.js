@@ -23,6 +23,7 @@ var settings = require('./conf.js');
 const token = settings.token;
 
 // Other Settings
+var badword = require('./plugins/badword.js');
 
 /* Events */
 // This will run when the bot is connected and ready
@@ -70,13 +71,17 @@ client.on('ready', () => {
                 if(user.id != client.user.id) {
                     //user who reacted to the post as a GuildMember
                     let userWhoReacted = message.guild.members.find(x => x.id === user.id);
-                    //if the reaction added is the checkmark
-                    if(reaction.emoji.name == '✅') {
-                            //give them student role
-                            userWhoReacted.addRole('478675916692783114');
-                            //clear their reaction
-                            reaction.remove(user);
-                    } 
+                    //if the user is not alumni and the reaction added is the checkmark
+                    if(!userWhoReacted.roles.find(x => x.id == '438856410521141248')) {
+                        if(reaction.emoji.name == '✅') {
+                                //give them student role
+                                userWhoReacted.addRole('478675916692783114');
+                                //clear their reaction
+                                reaction.remove(user);
+                        }
+                    } else {
+                        reaction.remove(user);
+                    }
                  }       
             });
         }).catch(console.error);
@@ -96,31 +101,35 @@ client.on('ready', () => {
                 if(user.id != client.user.id) {
                     //user who reacted to the post as a GuildMember
                     let userWhoReacted = message.guild.members.find(x => x.id === user.id);
-                    //if user selected 1, 2, or 3, give them apporopriate roles
-                    if(reaction.emoji.id == '503059802575077377') {
-                        //give them year 1 role
-                        userWhoReacted.addRole(yearRoles[0]);
-                        //remove any other year roles they might have
-                        userWhoReacted.removeRole(yearRoles[1]);
-                        userWhoReacted.removeRole(yearRoles[2]);
-                        //clear their reaction
+                    //if is not alumni and user selected 1, 2, or 3, give them apporopriate roles
+                    if(!userWhoReacted.roles.find(x => x.id == '438856410521141248')) {
+                        if(reaction.emoji.id == '503059802575077377') {
+                            //give them year 1 role
+                            userWhoReacted.addRole(yearRoles[0]);
+                            //remove any other year roles they might have
+                            userWhoReacted.removeRole(yearRoles[1]);
+                            userWhoReacted.removeRole(yearRoles[2]);
+                            //clear their reaction
+                            reaction.remove(user);
+                        } else if(reaction.emoji.id === '503059817762652180') {
+                            //give them year 2 role
+                            userWhoReacted.addRole(yearRoles[1]);
+                            //remove any other year roles they might have
+                            userWhoReacted.removeRole(yearRoles[0]);
+                            userWhoReacted.removeRole(yearRoles[2]);
+                            //clear their reaction
+                            reaction.remove(user); 
+                        } else if(reaction.emoji.id === '503059830127329291') {
+                            //give them year 3 role
+                            userWhoReacted.addRole(yearRoles[2]);
+                            //remove any other year roles they might have
+                            userWhoReacted.removeRole(yearRoles[0]);
+                            userWhoReacted.removeRole(yearRoles[1]);
+                            //clear their reaction
+                            reaction.remove(user); 
+                        }
+                    } else {
                         reaction.remove(user);
-                    } else if(reaction.emoji.id === '503059817762652180') {
-                        //give them year 2 role
-                        userWhoReacted.addRole(yearRoles[1]);
-                        //remove any other year roles they might have
-                        userWhoReacted.removeRole(yearRoles[0]);
-                        userWhoReacted.removeRole(yearRoles[2]);
-                        //clear their reaction
-                        reaction.remove(user); 
-                    } else if(reaction.emoji.id === '503059830127329291') {
-                        //give them year 3 role
-                        userWhoReacted.addRole(yearRoles[2]);
-                        //remove any other year roles they might have
-                        userWhoReacted.removeRole(yearRoles[0]);
-                        userWhoReacted.removeRole(yearRoles[1]);
-                        //clear their reaction
-                        reaction.remove(user); 
                     }
                 }   
             });
@@ -140,6 +149,9 @@ client.on('message', message => {
     console.log("in #" + message.channel.name);
     console.log("'" + message.content + "'");
     console.log("----------");
+
+    // check for badwords
+    badword.run(message);
 
     /* Command Message Logic */
 
