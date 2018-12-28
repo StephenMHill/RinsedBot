@@ -40,7 +40,7 @@ client.on('ready', () => {
 
     // Checks if the debugGUild channel exists
     if (debugChannel) { 
-        debugChannel.send('Reconnected JarrodBot');
+        // debugChannel.send('Reconnected JarrodBot');
     }
 
     // Output all servers(guilds) that the bot is currently in
