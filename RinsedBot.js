@@ -155,7 +155,7 @@ client.on('message', message => {
     console.log("----------");
 
     // check for badwords
-    console.log(badword.run(message));
+    badword.run(message);
 
     /* Command Message Logic */
 
