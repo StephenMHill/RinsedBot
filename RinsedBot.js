@@ -8,22 +8,22 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 // File path finding
-var glob = require('glob');
+let glob = require('glob');
 
 // Get a list of commands from the commands folder
 // This probably needs refactoring but that's ok
-var commandList = glob.sync("./commands/*.js").map((file) => {
+let commandList = glob.sync("./commands/*.js").map((file) => {
     return file.split("/")[2].split(".")[0];
 });
 
 // Import all settings from the conf.js file
-var settings = require('./conf.js');
+let settings = require('./conf.js');
 
 // Declare variables from the conf.js file
 const token = settings.token;
 
 // Other Settings
-var badword = require('./plugins/badword.js');
+let badword = require('./plugins/badword.js');
 let logsChannel;
 
 /* Events */
@@ -155,7 +155,7 @@ client.on('message', message => {
     console.log("----------");
 
     // check for badwords
-    badword.run(message, logsChannel);
+    badword.run(message);
 
     /* Command Message Logic */
 
@@ -179,7 +179,32 @@ client.on('message', message => {
 
 // Respond to message changes with various logic
 client.on('messageUpdate', (oldMsg, newMsg) => {
-    badword.run(newMsg, logsChannel);
+    badword.run(newMsg);
+});
+
+// Respond to message being deleted
+client.on('messageDelete', (message) => {
+    // check that logsChannel exists and that the channel the message was deleted in is not logsChannel
+	if(logsChannel && message.channel.id != logsChannel.id) {
+		// post deleted message in logsChannel
+    	logsChannel.send({embed: {
+		    color: 15158332,
+		    author: {
+		      name: message.author.tag,
+		      icon_url: message.author.avatarURL
+		    },
+		    title: "Deleted in #" + message.channel.name,
+		    description: message.content,
+		    timestamp: new Date(),
+		  }
+		});
+	}
+
+    // log deleted message in logs
+	console.log("\nFROM " + message.author.username);
+    console.log("DELETED in #" + message.channel.name);
+    console.log("'" + message.content + "'");
+    console.log("----------");
 });
 
 // Respond to the bot disconnecting
