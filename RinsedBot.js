@@ -71,8 +71,8 @@ client.on('ready', () => {
             });
             //reaction added
             client.on('messageReactionAdd', (reaction, user) => {
-                //check to make sure user isnt bot
-                if(user.id != client.user.id) {
+                //check to make sure user isnt bot and channel is welcome channel
+                if(user.id != client.user.id && reaction.message.channel.id == welcomeChannel.id) {
                     //user who reacted to the post as a GuildMember
                     let userWhoReacted = message.guild.members.find(x => x.id === user.id);
                     //if the user is not alumni and the reaction added is the checkmark
@@ -101,8 +101,8 @@ client.on('ready', () => {
             });
 
             client.on('messageReactionAdd', (reaction, user) => {
-                //check to make sure user isnt bot
-                if(user.id != client.user.id) {
+                //check to make sure user isnt bot and that channel is welcome channel
+                if(user.id != client.user.id && reaction.message.channel.id == welcomeChannel.id) {
                     //user who reacted to the post as a GuildMember
                     let userWhoReacted = message.guild.members.find(x => x.id === user.id);
                     //if is not alumni and user selected 1, 2, or 3, give them apporopriate roles
