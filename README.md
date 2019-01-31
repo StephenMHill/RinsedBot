@@ -29,6 +29,14 @@ https://nodejs.org/en/download/
 
 - If you're using this, you should install nodejs from one of the linux package managers. In this case `apt-get install`.
 
+## Docker installation
+
+- Clone the project
+
+- Build the docker images using the following command: `docker build -t rinsedbot .`
+
+- Start the docker image using the following command: `docker run --restart=always -d rinsedbot`
+
 ## Installation
 
 - Fork the repo to your computer. To do this, click on the `fork` button on the top-right hand corner.

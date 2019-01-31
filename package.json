@@ -1,6 +1,6 @@
 {
   "name": "rinsedbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Discord bot to manage our server",
   "main": "RinsedBot.js",
   "scripts": {
@@ -26,11 +26,11 @@
     "erlpack": "github:discordapp/erlpack",
     "glob": "^7.1.3",
     "hoek": "^5.0.4",
-    "libsodium-wrappers": "^0.5.4",
+    "libsodium-wrappers": "^0.7.3",
     "node-opus": "^0.2.9",
     "opusscript": "0.0.6",
     "request": "^2.88.0",
-    "sodium": "^2.0.3",
+    "sodium": "^3.0.2",
     "uws": "^9.148.0"
   },
   "devDependencies": {
