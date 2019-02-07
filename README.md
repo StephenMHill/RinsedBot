@@ -37,6 +37,8 @@ https://nodejs.org/en/download/
 
 - Start the docker image using the following command: `docker run --restart=always -d rinsedbot`
 
+- Optionally, start as a non-root user Ex. `docker run --user 1003 --restart=always -d rinsedbot`
+
 ## Installation
 
 - Fork the repo to your computer. To do this, click on the `fork` button on the top-right hand corner.
