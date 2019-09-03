@@ -1,10 +1,10 @@
 exports.run = (client, message, args) => {
     message.channel.send(`
-President: Kari Gignac
-Vice-President: Dorian Harusha
-Social Director: Stephen Hill
+President: James DiNovo
+Vice-President: TBD
+Social Director: Cordelle Neufeld
 Treasurer: Gregory Gibbons
-Secretary: Elisha Bergsma
+Secretary: Curtis Pritchard
 Tech Director: Ndricim Strazimiri
     `);
 }
