@@ -1,3 +1,5 @@
+FROM node:latest
+
 WORKDIR /usr/src/bot
 
 COPY package.json /usr/src/bot
